@@ -1,0 +1,34 @@
+html {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--cornflower-blue);
+}
+
+:root {
+    --color-white: #ffffff;
+    --cornflower-blue: #6195ed;
+}
+
+*,*::after,*::before {
+    box-sizing: inherit;
+}
+
+
+.container {
+    max-width: 1226px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.btn-reset {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    opacity: 0.6;
+    background-color: transparent;
+    color: var(--color-white);
+}
