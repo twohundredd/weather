@@ -75,15 +75,24 @@ export const createContent = (data) => {
         let currentName = today.getDay();
         
         for(let i = 0; i < num; i++) {
+            
             const dayData = document.createElement('div');
             dayData.classList.add('dayData');
             const dayOfWeek = document.createElement('div');
             const tempOfDay = document.createElement('span');
+            const unitOfDay = document.createElement('span');
             const descriptionOfDay = document.createElement('span');
-
+            
             tempOfDay.classList.add('tempOfDay');
-            descriptionOfDay.classList.add('tempOfDay');
-            tempOfDay.textContent = Math.floor(data.main.temp) + '°';
+            unitOfDay.classList.add('unitOfDay');
+            descriptionOfDay.classList.add('descriptionOfDay');
+
+            const tempBlock = document.createElement('div');
+            tempBlock.classList.add('tempBlock');
+            tempBlock.append(tempOfDay, unitOfDay);
+
+            tempOfDay.textContent = Math.floor(data.main.temp);
+            unitOfDay.textContent = 'o';
             descriptionOfDay.textContent = capitalizeFirstLetter(data.weather[0].description);
 
             dayOfWeek.classList.add('day__container');
@@ -92,8 +101,8 @@ export const createContent = (data) => {
                 
             }
             dayData.append(currentDay + ' ', nameDay[currentName]);
-            dayOfWeek.append(dayData, tempOfDay, descriptionOfDay);
-            nameDay[currentName++];
+            dayOfWeek.append(dayData, tempBlock, descriptionOfDay);
+            currentName = (currentName + 1) % 7;
             currentDay++;
             weekContainer.append(dayOfWeek);
         }

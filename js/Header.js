@@ -74,10 +74,17 @@ export const createHeader = (city) => {
         }
         unitsC.classList.add('unit-current');
         unitsF.classList.remove('unit-current');
+
         document.querySelector('.weather__units').textContent = 'o';
         const temperature = document.querySelector('.weather__temperature');
         const convertedTemp = fToC(+temperature.textContent);
         temperature.textContent = Math.round(convertedTemp);
+
+        document.querySelectorAll('.unitOfDay').forEach(u => u.textContent = 'o');
+        document.querySelectorAll('.tempOfDay').forEach(temperatureOfDay => {
+            const convertedTempOfDay = fToC(+temperatureOfDay.textContent);
+            temperatureOfDay.textContent = Math.round(convertedTempOfDay);
+        });
     })
 
     unitsF.addEventListener('click', () => {
@@ -86,10 +93,17 @@ export const createHeader = (city) => {
         }
         unitsF.classList.add('unit-current');
         unitsC.classList.remove('unit-current');
+        
         document.querySelector('.weather__units').textContent = 'f';
         const temperature = document.querySelector('.weather__temperature');
         const convertedTemp = cToF(+temperature.textContent);
         temperature.textContent = Math.round(convertedTemp);
+
+        document.querySelectorAll('.unitOfDay').forEach(u => u.textContent = 'f');
+        document.querySelectorAll('.tempOfDay').forEach(temperatureOfDay => {
+            const convertedTempOfDay = cToF(+temperatureOfDay.textContent);
+            temperatureOfDay.textContent = Math.round(convertedTempOfDay);
+        });
     })
 
     window.addEventListener('click', (e) => {

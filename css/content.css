@@ -115,12 +115,31 @@
     cursor: pointer;
 }
 
+/* .tempBlock {
+    
+} */
+
 .tempOfDay {
-    display: flex;
     justify-content: center;
     text-align: center;
     font-size: 11px;
     width: 68px;
     overflow: hidden;
     word-wrap: break-word;
+}
+
+.descriptionOfDay {
+    justify-content: center;
+    text-align: center;
+    font-size: 11px;
+    width: 68px;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.unitOfDay {
+    font-size: 8px;
+    color: var(--color-black);
+    vertical-align: super;
+    line-height: 1;
 }
