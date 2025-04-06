@@ -1,4 +1,5 @@
 import { directionOfWind, capitalizeFirstLetter } from "./helper.js";
+// import { createWeekContainer } from "./week.js";
 
 export const createContent = (data) => {
     const main = document.createElement('main');
@@ -41,35 +42,65 @@ export const createContent = (data) => {
 
         return span;
     }
-
     const createWeatherItemContent = (text) => {
         const p = document.createElement('p');
         p.textContent = text;
 
         return p;
     }
-
     weatherInfoWind.append(
         createWeatherItemTitle('Ветер'),
         createWeatherItemContent(Math.floor(data.wind.speed) + ' м/с, ' + directionOfWind(data.wind.deg))
     );
-
     weatherInfoPressure.append(
         createWeatherItemTitle('Давление'),
         createWeatherItemContent(Math.floor(data.main.pressure) + ' мм рт. ст.')
     );
-
     weatherInfoHumidity.append(
         createWeatherItemTitle('Влажность'),
         createWeatherItemContent(Math.floor(data.main.humidity) + '%')
     );
-
     weatherInfoClouds.append(
         createWeatherItemTitle('Облачность'),
         createWeatherItemContent(Math.floor(data.clouds.all) + '%')
     );
 
-    main.append(section);
+    const createWeekContainer = (num) => {
+        const weekContainer = document.createElement('div');
+        weekContainer.classList.add('week__container');
+        
+        const today = new Date();
+        let currentDay = today.getDate();
+        const nameDay = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+        let currentName = today.getDay();
+        
+        for(let i = 0; i < num; i++) {
+            const dayData = document.createElement('div');
+            dayData.classList.add('dayData');
+            const dayOfWeek = document.createElement('div');
+            const tempOfDay = document.createElement('span');
+            const descriptionOfDay = document.createElement('span');
+
+            tempOfDay.classList.add('tempOfDay');
+            descriptionOfDay.classList.add('tempOfDay');
+            tempOfDay.textContent = Math.floor(data.main.temp) + '°';
+            descriptionOfDay.textContent = capitalizeFirstLetter(data.weather[0].description);
+
+            dayOfWeek.classList.add('day__container');
+            if(i === 0) {
+                dayOfWeek.classList.add('currentDay__container');
+                
+            }
+            dayData.append(currentDay + ' ', nameDay[currentName]);
+            dayOfWeek.append(dayData, tempOfDay, descriptionOfDay);
+            nameDay[currentName++];
+            currentDay++;
+            weekContainer.append(dayOfWeek);
+        }
+        return weekContainer;
+    }
+
+    main.append(createWeekContainer(7), section);
     section.append(container);
     container.append(inner, description, weatherInfo);
     inner.append(iconBloc, temperature, units);
@@ -80,6 +111,6 @@ export const createContent = (data) => {
         weatherInfoHumidity,
         weatherInfoClouds
     );
-
+    
     return main;
 }
